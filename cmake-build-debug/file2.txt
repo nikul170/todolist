@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+FILE *file1, *file2;
+
+struct list{
+    list *next;
+    int element;
+};
+
+
+void input(list *p){
+    char g = ' ';
+    list *h;
+    file1 = fopen("input.txt", "r");
+
+    if (!file1) {
+        printf("Ошибка открытия файла");
+        exit(1);
+    }
+
+    fscanf(file1, "%d", &p->element);
+    p -> next = NULL;
+    h = p;
+    while(g != EOF){
+        h -> next = new list;
+        h = h -> next;
+        fscanf(file1, "%d", &h->element);
+
+        g = getc(file1);
+    }
+
+    fclose(file1);
+}
+
+
+int find_element(int num, list *a){
+    if (a -> element == num)
+        return 1;
+    if (a -> next == NULL)
+        return 0;
+    return find_element(num, a -> next);
+}
+
+void Delete(list *l)
+{
+    list *p = l->next;
+    for (; p; p = p->next)
+    {
+        delete l;
+        l = p;
+    }
+    delete l;
+    l = NULL;
+}
+
+
+void output(int result){
+    file2 = fopen("file2.txt", "w");
+    fprintf(file2, "%d", result);
+    fclose(file2);
+}
+
+
+int main(){
+    list *p = new list;
+    input(p);
+    output(find_element(8, p));
+    Delete(p);
+    return 0;
+
+}
