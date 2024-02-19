@@ -21,7 +21,7 @@ void clean(list* s)
 void save(float num)
 {
     FILE* file2 = fopen("output.txt", "w");
-    fprintf(file2, "%f", num);
+    fprintf(file2, "%.3f", num);
     fclose(file2);
 }
 
